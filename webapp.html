@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Number Guessing Game</h1>
+        <p>Guess a number between 1 and 100</p>
+        <input type="number" id="guess" min="1" max="100" placeholder="Enter your guess">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <button onclick="resetGame()">Reset Game</button>
+        <p class="result" id="result"></p>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const guessInput = document.getElementById('guess');
+            const resultElement = document.getElementById('result');
+            const guess = parseInt(guessInput.value, 10);
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                resultElement.textContent = 'Please enter a valid number between 1 and 100.';
+                return;
+            }
+
+            attempts++;
+
+            if (guess === randomNumber) {
+                resultElement.textContent = `Congratulations! You guessed the number ${randomNumber} in ${attempts} attempts.`;
+                resultElement.style.color = 'green';
+            } else if (guess < randomNumber) {
+                resultElement.textContent = 'Too low! Try again.';
+                resultElement.style.color = 'red';
+            } else {
+                resultElement.textContent = 'Too high! Try again.';
+                resultElement.style.color = 'red';
+            }
+        }
+
+        function resetGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('guess').value = '';
+            document.getElementById('result').textContent = '';
+        }
+    </script>
+    <p><a href="store.html">Back</a> | <a href="index.html">Home</a></p>
+</body>
+</html>
